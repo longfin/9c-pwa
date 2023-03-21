@@ -6,8 +6,8 @@ import QrReader from "react-qr-scanner";
 export default function QRImport() {
     const router = useRouter();
     const handleScan = async (data) => {
-        if (isKeystoreJson(data)) {
-            await set("qr", data);
+        if (isKeystoreJson(data?.text)) {
+            await set("qr", data?.text);
             alert("loaded");
             router.push("start");
         }
@@ -20,7 +20,8 @@ export default function QRImport() {
           style={{width: 640, height: 640}}
           onScan={handleScan}
           onError={handleError}
-          facingmode="rear"
+          resolution={1080}
+          constraints={{audio: false, video: {width: 1280, height: 720, focusMode: "continuous", facingMode: {ideal: "environment"}}}}
         />
     </>
 }
