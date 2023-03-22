@@ -15,13 +15,11 @@ export default function QRImport() {
     const handleError = (err) => {
         console.error(err);
     }
-    return <>
-        <QrReader
+    return <QrReader
           style={{width: 640, height: 640}}
           onScan={handleScan}
           onError={handleError}
           resolution={1080}
           constraints={{audio: false, video: {width: 1280, height: 720, focusMode: "continuous", facingMode: {ideal: "environment"}}}}
         />
-    </>
 }
