@@ -9,12 +9,13 @@ export default function QRImport() {
         if (isKeystoreJson(result)) {
             await set("qr", result);
             alert("Imported.");
-            router.reload();
+            router.push("/");
         }
     }
     const handleError = (err: Error) => {
         console.error(err);
     }
+
     return <QrScanner
           onDecode={handleScan}
           onError={handleError}

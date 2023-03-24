@@ -31,6 +31,7 @@ export default function Home() {
         }
       }
   }
+  const supportFileSystem = typeof window !== "undefined" && !!window.showOpenFilePicker;
   
   return (
     <>
@@ -38,7 +39,7 @@ export default function Home() {
         { account === undefined 
           ? <AccountLoader /> 
           : <Button component={Link} href="lobby">Start with {account.address}!</Button>}
-        <Button onClick={handleImportKeystoreFile}>Import keystore via file</Button>
+        { supportFileSystem && <Button onClick={handleImportKeystoreFile}>Import keystore via file</Button>}
         <Button component={Link} href="qrImport">Import keystore via QR</Button>
         <Button component={Link} href="settings">Settings</Button>
       </main>
