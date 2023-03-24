@@ -1,10 +1,10 @@
-import styles from '@/styles/Home.module.css'
+import styles from '../styles/Home.module.css'
 import Link from 'next/link';
 import { isKeystoreJson } from 'ethers';
-import AccountLoader from './accountLoader';
+import AccountLoader from '../components/accountLoader';
 import { useRecoilState } from 'recoil';
 import { Button } from '@mui/material';
-import keystoreAccount from '@/atoms/keystoreAccount';
+import keystoreAccount from '../atoms/keystoreAccount';
 import { set } from 'idb-keyval';
 import { useRouter } from 'next/router';
 

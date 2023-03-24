@@ -1,10 +1,10 @@
-import { entries as getEntries, get, set  } from "idb-keyval";
+import { entries as getEntries, get  } from "idb-keyval";
 import { useEffect, useState } from "react";
-import { AddressLike, decryptKeystoreJson, isKeystoreJson } from "ethers";
+import { AddressLike, decryptKeystoreJson } from "ethers";
 import { useRecoilState } from "recoil";
 import { Button, FormControl, FormLabel, Grid, MenuItem, NativeSelect, Select, TextField } from "@mui/material";
 import { useRouter } from "next/router";
-import keystoreAccount from "@/atoms/keystoreAccount";
+import keystoreAccount from "../atoms/keystoreAccount";
 
 export default function AccountLoader() {
     const [keystores, setKeystores] = useState<[string, AddressLike][]>([]);
@@ -47,7 +47,7 @@ export default function AccountLoader() {
                         <TextField type="password" name="passphrase" />
                     </FormControl>                    
                 </Grid>
-                <Button type="submit">Load</Button>
+                <Button type="submit">Unlock</Button>
             </Grid>
         </form>
         }
