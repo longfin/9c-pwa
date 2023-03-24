@@ -14,7 +14,6 @@ export default function Home() {
   const handleImportKeystoreFile = async () => {
       try {
         const fh:[FileSystemFileHandle] = await window.showOpenFilePicker({
-            startIn: "documents",
             multiple: false,
         });
         const keystoreFile = await fh[0].getFile();

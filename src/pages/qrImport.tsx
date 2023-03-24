@@ -1,25 +1,23 @@
 import { isKeystoreJson } from "ethers";
 import { set } from "idb-keyval";
 import { useRouter } from 'next/router';
-import QrReader from "react-qr-scanner";
+import { QrScanner } from "@yudiel/react-qr-scanner";
 
 export default function QRImport() {
     const router = useRouter();
-    const handleScan = async (data) => {
-        if (isKeystoreJson(data?.text)) {
-            await set("qr", data?.text);
+    const handleScan = async (result: string) => {
+        if (isKeystoreJson(result)) {
+            await set("qr", result);
             alert("Imported.");
             router.reload();
         }
     }
-    const handleError = (err) => {
+    const handleError = (err: Error) => {
         console.error(err);
     }
-    return <QrReader
-          style={{width: 640, height: 640}}
-          onScan={handleScan}
+    return <QrScanner
+          onDecode={handleScan}
           onError={handleError}
-          resolution={1080}
-          constraints={{audio: false, video: {width: 1280, height: 720, focusMode: "continuous", facingMode: {ideal: "environment"}}}}
+          constraints={{width: 1280, height: 720, facingMode: {ideal: "environment"}}}
         />
 }

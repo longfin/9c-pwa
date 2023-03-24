@@ -1,8 +1,8 @@
 import { entries as getEntries, get  } from "idb-keyval";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AddressLike, decryptKeystoreJson } from "ethers";
 import { useRecoilState } from "recoil";
-import { Button, FormControl, FormLabel, Grid, MenuItem, NativeSelect, Select, TextField } from "@mui/material";
+import { Button, FormControl, FormLabel, Grid, NativeSelect, TextField } from "@mui/material";
 import { useRouter } from "next/router";
 import keystoreAccount from "../atoms/keystoreAccount";
 
@@ -12,16 +12,18 @@ export default function AccountLoader() {
     const router = useRouter();
     useEffect(() => {
         (async () => {
-            setKeystores((await getEntries()).map(([k, v]) => [k, JSON.parse(v)["address"]]));
+            setKeystores((await getEntries()).map(([k, v]) => [k.toString(), JSON.parse(v)["address"]]));
         })();
     }, []);
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
-        const keystoreName = e.target.keystoreName.value;
-        const passphrase = e.target.passphrase.value;
-        const keystoreContent = await get(keystoreName);
+        const form = e.target as typeof e.target & {
+            keystoreName: { value: string },
+            passphrase: { value: string },
+        }
+        const keystoreContent = await get(form.keystoreName.value);
         try {
-            const keystoreAccount = await decryptKeystoreJson(keystoreContent, passphrase);
+            const keystoreAccount = await decryptKeystoreJson(keystoreContent, form.passphrase.value);
             setKeystoreAccount(_ => keystoreAccount);
             router.push("lobby");
         } catch {
@@ -37,7 +39,7 @@ export default function AccountLoader() {
                     <FormControl fullWidth>
                         <FormLabel>Account</FormLabel>
                         <NativeSelect name="keystoreName" defaultValue={keystores[0][0]}>
-                            {keystores.map(([keystoreName, address]) => <option key={keystoreName} value={keystoreName}>{address}</option>)}
+                            {keystores.map(([keystoreName, address]) => <option key={keystoreName} value={keystoreName}>{address.toString()}</option>)}
                         </NativeSelect>
                     </FormControl>
                 </Grid>
