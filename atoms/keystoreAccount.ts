@@ -3,5 +3,5 @@ import { atom } from "recoil";
 
 export default atom<KeystoreAccount>({
     key: "keystoreAccount",
-    default: undefined
+    default: undefined,
 })

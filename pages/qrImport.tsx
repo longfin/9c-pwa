@@ -8,8 +8,8 @@ export default function QRImport() {
     const handleScan = async (data) => {
         if (isKeystoreJson(data?.text)) {
             await set("qr", data?.text);
-            alert("loaded");
-            router.push("start");
+            alert("Imported.");
+            router.reload();
         }
     }
     const handleError = (err) => {
