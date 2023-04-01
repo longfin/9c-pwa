@@ -4,11 +4,12 @@ import { AddressLike, decryptKeystoreJson } from "ethers";
 import { useRecoilState } from "recoil";
 import { Button, FormControl, FormLabel, Grid, NativeSelect, TextField } from "@mui/material";
 import { useRouter } from "next/router";
-import keystoreAccount from "../atoms/keystoreAccount";
+import accountAtom from "../atoms/account";
+import { RawPrivateKey } from "@planetarium/account";
 
 export default function AccountLoader() {
     const [keystores, setKeystores] = useState<[string, AddressLike][]>([]);
-    const [_, setKeystoreAccount] = useRecoilState(keystoreAccount);
+    const [_, setAccount] = useRecoilState(accountAtom);
     const router = useRouter();
     useEffect(() => {
         (async () => {
@@ -24,7 +25,7 @@ export default function AccountLoader() {
         const keystoreContent = await get(form.keystoreName.value);
         try {
             const keystoreAccount = await decryptKeystoreJson(keystoreContent, form.passphrase.value);
-            setKeystoreAccount(_ => keystoreAccount);
+            setAccount(_ => RawPrivateKey.fromHex(keystoreAccount.privateKey.replace("0x", "")));
             router.push("lobby");
         } catch {
             alert("Decryption failed.");

@@ -1,8 +1,9 @@
-import keystoreAccountAtom from "../atoms/keystoreAccount";
-import AccountCard from "../components/accountCard";
-import { graphql } from "../gql";
 import { useRecoilState } from "recoil";
 import { useQuery } from "urql";
+import { Address } from "@planetarium/account";
+import accountAtom from "../atoms/account";
+import AccountCard from "../components/accountCard";
+import { graphql } from "../gql";
 
 const AccountInfoQueryDocument = graphql(/* GraphQL */ `
     query accountInformation($address: Address!) {
@@ -24,17 +25,20 @@ const AccountInfoQueryDocument = graphql(/* GraphQL */ `
     }
 `);
 
-export default function Lobby()
-{
-    const [keystoreAccount, _] = useRecoilState(keystoreAccountAtom);
-    const [accountInfoResult, __] = useQuery({
+export default function Lobby() {
+    const [accountState, _] = useRecoilState(accountAtom);
+    const address = accountState?.publicKey ? Address.deriveFrom(accountState.publicKey).toHex() : undefined;
+    const [queryResult, __] = useQuery({
         query: AccountInfoQueryDocument,
-        variables: { address: keystoreAccount?.address },
-        pause: !keystoreAccount,
+        variables: { address },
+        pause: !accountState,
     });
-    const account = accountInfoResult?.data;
     
-    return (account) 
-        ? <AccountCard account={account} />
-        : <>You need to unlock keystore first.</>
+    return (!accountState)
+        ? <>You need to unlock keystore first.</>
+        : 
+            (queryResult.data)
+            ? <AccountCard account={queryResult.data} />
+            : <>Now loading...</>
+
 }
