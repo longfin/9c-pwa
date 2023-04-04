@@ -3,7 +3,9 @@ import { useQuery } from "urql";
 import { Address } from "@planetarium/account";
 import accountAtom from "../atoms/account";
 import AccountCard from "../components/accountCard";
+import txNonceAtom from "../atoms/txNonce";
 import { graphql } from "../gql";
+import { useEffect } from "react";
 
 const AccountInfoQueryDocument = graphql(/* GraphQL */ `
     query accountInformation($address: Address!) {
@@ -19,6 +21,7 @@ const AccountInfoQueryDocument = graphql(/* GraphQL */ `
                     name
                     level
                     actionPoint
+                    address
                 }
             }
         }
@@ -27,13 +30,21 @@ const AccountInfoQueryDocument = graphql(/* GraphQL */ `
 
 export default function Lobby() {
     const [accountState, _] = useRecoilState(accountAtom);
+    const [__, setTxNonce] = useRecoilState(txNonceAtom);
     const address = accountState?.publicKey ? Address.deriveFrom(accountState.publicKey).toHex() : undefined;
-    const [queryResult, __] = useQuery({
+    const [queryResult, ___] = useQuery({
         query: AccountInfoQueryDocument,
         variables: { address },
         pause: !accountState,
     });
     
+    useEffect(() => {
+        if (queryResult.data?.txNonce.nextTxNonce) {
+            const txNonce = queryResult.data.txNonce.nextTxNonce;
+            setTxNonce(_ => txNonce);
+        }
+    }, [queryResult, setTxNonce]);
+
     return (!accountState)
         ? <>You need to unlock keystore first.</>
         : 

@@ -1889,7 +1889,15 @@
     tiny-glob "^0.2.9"
     tslib "^2.4.0"
 
-"@planetarium/account@^0.0.0", "@planetarium/account@^0.53.2":
+"@planetarium/account@^0.0.0":
+  version "0.53.3"
+  resolved "https://registry.yarnpkg.com/@planetarium/account/-/account-0.53.3.tgz#42006beff4f5fa32871225c19c37b33c14a7ee94"
+  integrity sha512-93DRHjm/9OlD2QuH/7Qc3nV65YecKPasF4SScovXF10ZUoANJZlByhwVCnVebRvt27P+ej31+K/7glwPTbOUrQ==
+  dependencies:
+    "@noble/hashes" "^1.2.0"
+    "@noble/secp256k1" "^1.7.1"
+
+"@planetarium/account@^0.53.2":
   version "0.53.2"
   resolved "https://registry.yarnpkg.com/@planetarium/account/-/account-0.53.2.tgz#2d0b52e2f8f71541b6da65cdfdabea6ce217ed06"
   integrity sha512-gE0NdPeT2JCi3sUNl0tyH6KqW5sbmWNdijNCKV/OSMBzBsnUpREdIAz0E0DW2xy9JT1ZvJBTNsM9GmCR42N/GA==
@@ -2095,6 +2103,11 @@
   version "2.0.3"
   resolved "https://registry.npmjs.org/@types/trusted-types/-/trusted-types-2.0.3.tgz"
   integrity sha512-NfQ4gyz38SL8sDNrSixxU2Os1a5xcdFxipAFxYEuLUlvU2uDwS4NUpsImcf1//SlWItCVMMLiylsxbmNMToV/g==
+
+"@types/uuid@^9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-9.0.1.tgz#98586dc36aee8dacc98cc396dbca8d0429647aa6"
+  integrity sha512-rFT3ak0/2trgvp4yYZo5iKFEPsET7vKydKF+VRCxlQ9bpheehyAJH89dAkaLEq/j/RZXJIqcgsmPJKUP1Z28HA==
 
 "@types/wicg-file-system-access@^2020.9.5":
   version "2020.9.5"
@@ -6080,6 +6093,11 @@ util-deprecate@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
+
+uuid@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-9.0.0.tgz#592f550650024a38ceb0c562f2f6aa435761efb5"
+  integrity sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==
 
 value-or-promise@1.0.12, value-or-promise@^1.0.11, value-or-promise@^1.0.12:
   version "1.0.12"
